@@ -15,4 +15,4 @@ COPY app.py .
 EXPOSE 4000
 
 # Run FastAPI with uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "4000"]

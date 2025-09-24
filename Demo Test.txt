@@ -1,0 +1,12 @@
+## Build new container docker
+docker compose up --build -d
+
+# Start docker container
+docker compose up
+
+# Demo message you copy and paste on powershell terminal
+
+Invoke-WebRequest -Uri "http://localhost:4000/classify" `
+  -Method POST `
+  -Headers @{ "Content-Type" = "application/json" } `
+  -Body '{"subject":"ส่งรายงานภายในวันนี้","body":"ก่อน 12.00","sender":"ajarn@ubu.ac.th","due_iso":"2025-10-03T12:00:00"}'
