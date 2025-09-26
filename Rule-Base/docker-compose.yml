@@ -1,9 +1,30 @@
-version: "3.9"
-
 services:
-  ruleapi:
-    build: .
-    container_name: ruleapi
+  urgency_api:
+    build:
+      context: ./urgency-api
+    container_name: urgency-api
+    environment:
+      - HF_MODEL=valhalla/distilbart-mnli-12-3
+      - TZ=Asia/Bangkok
     ports:
       - "4010:4010"
-    restart: always
+    restart: unless-stopped
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=pass1234
+      - GENERIC_TIMEZONE=Asia/Bangkok
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      - urgency_api
+    restart: unless-stopped
+
+volumes:
+  n8n_data:
